@@ -1,16 +1,21 @@
 import jwt from "jsonwebtoken";
 
-const createJWT = (res, userId) => {
-  const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
-    expiresIn: "1d",
-  });
+const createJWT = (res, user) => {
+  const token = jwt.sign(
+    { userId: user._id.toString(), isAdmin: user.isAdmin, roles: user.roles || [] },
+    process.env.JWT_SECRET,
+    { expiresIn: "1d" }
+  );
 
   res.cookie("token", token, {
-    httpOnly: true,                              // ✅ keep cookie safe from JS
-    secure: process.env.NODE_ENV === "production", // true only in prod (HTTPS)
-    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", // lax for dev, none for prod
-    maxAge: 24 * 60 * 60 * 1000,                 // 1 day
+    httpOnly: true,
+    secure: false,   // must be false on localhost HTTP
+    sameSite: "lax", // "lax" works for dev
+    maxAge: 24 * 60 * 60 * 1000,
+    path: "/",       // send for all routes
   });
+
+  return token;
 };
 
 export default createJWT;

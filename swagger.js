@@ -247,21 +247,7 @@ const swaggerDocument = {
         },
       },
     },
-    '/tasks/duplicate/{id}': {
-      post: {
-        tags: ['Tasks'],
-        summary: 'Duplicate task by ID (admin only)',
-        security: [{ bearerAuth: [] }],
-        parameters: [
-          { name: 'id', in: 'path', required: true, schema: { type: 'string' } },
-        ],
-        responses: {
-          200: { description: 'Task duplicated' },
-          401: { description: 'Unauthorized' },
-          404: { description: 'Task not found' },
-        },
-      },
-    },
+    
     '/tasks/activity/{id}': {
       post: {
         tags: ['Tasks'],
@@ -332,36 +318,7 @@ const swaggerDocument = {
         },
       },
     },
-    '/tasks/create-subtask/{id}': {
-      put: {
-        tags: ['Tasks'],
-        summary: 'Create subtask (admin only)',
-        security: [{ bearerAuth: [] }],
-        parameters: [
-          { name: 'id', in: 'path', required: true, schema: { type: 'string' } },
-        ],
-        requestBody: {
-          required: true,
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                properties: {
-                  title: { type: 'string', example: 'Subtask example' },
-                  // add other subtask properties here
-                },
-                required: ['title'],
-              },
-            },
-          },
-        },
-        responses: {
-          200: { description: 'Subtask created' },
-          401: { description: 'Unauthorized' },
-          404: { description: 'Task not found' },
-        },
-      },
-    },
+   
     '/tasks/update/{id}': {
       put: {
         tags: ['Tasks'],

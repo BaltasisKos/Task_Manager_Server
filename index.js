@@ -7,6 +7,7 @@ import routes from "./routes/index.js";
 import dbConnection from "./utils/connectDB.js";
 import userRoutes from "./routes/userRoute.js";
 import taskRoutes from "./routes/taskRoute.js";
+import teamRoutes from "./routes/teamRoute.js";
 
 dotenv.config();
 dbConnection();
@@ -18,20 +19,27 @@ const port = process.env.PORT || 5000;
 app.use(
   cors({
     origin: "http://localhost:3000", // frontend URL
-    methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+    // methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
     credentials: true, // important to allow cookies
   })
 );
+app.use(cookieParser());
 
 // -------------------- Middleware --------------------
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+
 
 // -------------------- Routes --------------------
 app.use("/api", routes);
 app.use("/api/users", userRoutes);
 app.use("/api/tasks", taskRoutes);
+app.use("/api/teams", teamRoutes);
+
+// -------------------- Root route --------------------
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
 
 // -------------------- Error Handling --------------------
 app.use(routeNotFound);

@@ -21,18 +21,18 @@ router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 
 // -------------------- Protected routes --------------------
-router.get("/get-team", protectRoute, isAdminRoute, getTeamList);
-router.get("/get-status", protectRoute, isAdminRoute, getUserTaskStatus);
+router.get("/get-team",  getTeamList);
+router.get("/get-status",  getUserTaskStatus);
 
-router.put("/profile", protectRoute, updateUserProfile);
-router.put("/change-password", protectRoute, changeUserPassword);
+router.put("/profile", updateUserProfile);
+router.put("/change-password", changeUserPassword);
 
 // -------------------- Admin routes --------------------
-router.post("/", protectRoute, isAdminRoute, createUserByAdmin);
+router.post("/", createUserByAdmin);
 
 router
   .route("/:id")
-  .put(protectRoute, isAdminRoute, activateUserProfile)
-  .delete(protectRoute, isAdminRoute, deleteUserProfile);
+  .put( activateUserProfile)
+  .delete( deleteUserProfile);
 
 export default router;

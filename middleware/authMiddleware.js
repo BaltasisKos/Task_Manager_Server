@@ -12,11 +12,12 @@ const protectRoute = asyncHandler(async (req, res, next) => {
   }
 
   try {
-    // Verify JWT
-    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Find user in DB using decoded id
-    const user = await User.findById(decodedToken.id).select("isAdmin email");
+    // Use the correct field from JWT
+    const userId = decodedToken.userId; // <-- must match createJWT
+
+    const user = await User.findById(userId).select("isAdmin email");
 
     if (!user) {
       return res
@@ -24,9 +25,8 @@ const protectRoute = asyncHandler(async (req, res, next) => {
         .json({ status: false, message: "User not found. Try login again." });
     }
 
-    // Attach user info to req.user
     req.user = {
-      userId: decodedToken.id,   // keep consistent naming
+      userId: user._id.toString(),
       email: user.email,
       isAdmin: user.isAdmin,
       roles: decodedToken.roles || [],
@@ -41,6 +41,7 @@ const protectRoute = asyncHandler(async (req, res, next) => {
   }
 });
 
+// Admin check
 const isAdminRoute = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
     next();

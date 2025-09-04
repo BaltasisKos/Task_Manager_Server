@@ -24,7 +24,8 @@ const loginUser = asyncHandler(async (req, res) => {
     return res.status(401).json({ status: false, message: "Invalid email or password" });
   }
 
-  createJWT(res, user._id);
+  // ✅ Pass full user object
+  createJWT(res, user);
 
   user.password = undefined;
   res.status(200).json({
@@ -61,7 +62,7 @@ const registerUser = asyncHandler(async (req, res) => {
     return res.status(400).json({ status: false, message: "Invalid user data" });
   }
 
-  createJWT(res, user._id);
+  createJWT(res, user);
   user.password = undefined;
 
   res.status(201).json({
@@ -78,7 +79,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // POST - Logout User
 // ===========================
 const logoutUser = (req, res) => {
-  res.cookie("token", "", { httpOnly: true, expires: new Date(0) });
+  res.cookie("token", "", { httpOnly: true, expires: new Date(0), path: "/" });
   res.status(200).json({ message: "Logged out successfully" });
 };
 

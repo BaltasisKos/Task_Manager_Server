@@ -7,10 +7,16 @@ const taskSchema = new mongoose.Schema({
     trim: true,
   },
   team: {
-    type: String,
-    trim: true,
-    default: "",
+    type: mongoose.Schema.Types.ObjectId, // reference team
+    ref: "Teams",
+    required: true,
   },
+  members: [ // array of User IDs
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+    }
+  ],
   status: {
     type: String,
     enum: ["todo", "inProgress", "completed", "deleted"],
@@ -40,4 +46,4 @@ taskSchema.virtual("completed").get(function () {
   return this.status === "completed";
 });
 
-export default mongoose.model("Task", taskSchema);
+export default mongoose.model("Tasks", taskSchema);

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Task from "../models/taskModel.js";
+import Team from "../models/teamModel.js";
 
 // GET all tasks
 export const getTasks = async (req, res) => {
@@ -14,10 +15,25 @@ export const getTasks = async (req, res) => {
 // POST create task
 export const createTask = async (req, res) => {
   try {
-    const task = await Task.create(req.body);
+    const { name, teamId, notes, dueDate } = req.body;
+
+    // Fetch the team and its members
+    const team = await Team.findById(teamId).populate("members");
+    if (!team) return res.status(404).json({ message: "Team not found" });
+
+    // Create the task with team members
+    const task = await Task.create({
+      name,
+      team: team._id,
+      members: team.members.map((m) => m._id), // assign all team members
+      notes,
+      dueDate,
+    });
+
     res.status(201).json(task);
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    console.error(err);
+    res.status(400).json({ message: "Failed to create task" });
   }
 };
 

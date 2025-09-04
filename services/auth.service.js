@@ -10,14 +10,14 @@ function generateAccessToken(user) {
     roles: user.roles || [],
   };
 
-  const secret = process.env.TOKEN_SECRET;
+  const secret = process.env.JWT_SECRET;
   const options = { expiresIn: "1h" };
 
   return jwt.sign(payload, secret, options);
 }
 
 function verifyAccessToken(token) {
-  const secret = process.env.TOKEN_SECRET;
+  const secret = process.env.JWT_SECRET;
 
   try {
     const payload = jwt.verify(token, secret);

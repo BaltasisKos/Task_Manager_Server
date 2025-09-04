@@ -13,7 +13,7 @@ exports.login = async (req, res) => {
       { username: 1, email: 1, password: 1, roles: 1 }
     );
 
-    if (!user) {
+    if (!result) {
       return res.status(404).json({ status: false, data: "User not found" });
     }
 
