@@ -4,19 +4,6 @@ Task Manager is a final exam project for Coding Factory 7 of Athens Univercity o
 
 ---
 
-## Table of Contents
-
-- [Overview](#overview)  
-- [Technology Stack](#technology-stack)  
-- [Setup & Development](#setup--development)  
-- [Project Structure](#project-structure)  
-- [How to Use (API)](#how-to-use-api)  
-- [Deployment](#deployment)  
-- [Build](#build)  
-
-
----
-
 ## Overview
 
 This is the **backend server** for the Task Manager application, implementing a RESTful API to manage tasks (create, read, update, delete) and serve as the data layer for the React client. API endpoints are structured using Express-style routing, supported by models, controllers, services, middleware, utilities, and Swagger documentation.
