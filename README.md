@@ -32,32 +32,55 @@ This is the **backend server** for the Task Manager application, implementing a 
 
 ---
 
-## Setup & Development
+## Build & Development
 
-1. **Clone the repository**
+**Clone the repository**
 
    ```bash
    git clone https://github.com/BaltasisKos/Task_Manager_Server.git
    cd Task_Manager_Server
    ```
 
-2. **Install dependencies**
+## Environment variables
+First, create the environment variables file `.env` in the server folder. The `.env` file contains the following environment variables:
 
-   ```bash
-   npm install
-   ```
+- MONGODB_URI = `your MongoDB URL`
+- JWT_SECRET = `any secret key - must be secured`
+- PORT = `5000` or any port number
+- NODE_ENV = `development`
 
-3. **Run the development server**
 
-   ```bash
-   npm start
-   ```
+&nbsp;
 
-4. **Access API documentation**
+## Set Up MongoDB:
 
-   If Swagger is configured, navigate to the appropriate route (e.g., `/api-docs`) to view the API specification.
+1. Setting up MongoDB involves a few steps:
+    - Visit MongoDB Atlas Website
+        - Go to the MongoDB Atlas website: [https://www.mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas).
 
----
+    - Create an Account
+    - Log in to your MongoDB Atlas account.
+    - Create a New Cluster
+    - Choose a Cloud Provider and Region
+    - Configure Cluster Settings
+    - Create Cluster
+    - Wait for Cluster to Deploy
+    - Create Database User
+    - Set Up IP Whitelist
+    - Connect to Cluster
+    - Configure Your Application
+    - Test the Connection
+
+2. Create a new database and configure the `.env` file with the MongoDB connection URL. 
+
+## Steps to run server
+
+1. Open the project in any editor of choice.
+2. Navigate into the server directory `cd server`.
+3. Run `npm i` or `npm install` to install the packages.
+4. Run `npm start` to start the server.
+
+
 
 ## Project Structure
 
@@ -96,30 +119,4 @@ Task_Manager_Server/
 Use tools like Postman, Insomnia, or cURL to test the API during development.
 
 ---
-
-## Deployment
-
-1. Ensure environment variables are set (e.g., MongoDB connection string, PORT).  
-2. Run a production deployment with:
-
-   ```bash
-   NODE_ENV=production npm start
-   ```
-
-3. Deploy to your hosting platform of choice (e.g., Heroku, AWS, DigitalOcean) following their specific Node.js deployment flow.
-
----
-
-## Build
-
-This project is server‑side JavaScript; no build step is required unless you transpile with Babel or use TypeScript. Run:
-
-- **Development**:  
-  ```bash
-  npm run dev
-  ```
-- **Production**:  
-  ```bash
-  npm start
-  ```
 
