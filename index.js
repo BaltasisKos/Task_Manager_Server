@@ -18,8 +18,8 @@ const port = process.env.PORT || 5000;
 // -------------------- CORS --------------------
 app.use(
   cors({
-    origin: "http://localhost:3000", // frontend URL
-    // methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
+    origin: ["http://localhost:3000", "http://localhost:5173"], // frontend URLs (React + Vite)
+    methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
     credentials: true, // important to allow cookies
   })
 );

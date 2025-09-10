@@ -6,22 +6,27 @@ import {
   updateTask,
   deleteTask,
   softDeleteTask,
-  restoreTask
+  restoreTask,
+  searchAll
 } from "../controller/taskController.js";
+import { protectRoute } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router.route("/")
-  .get(getTasks)
-  .post(createTask);
+  .get(protectRoute, getTasks)
+  .post(protectRoute, createTask);
+
+router.route("/search")
+  .get(protectRoute, searchAll); // GET for search
 
 router.route("/:id")
-  .get(getTask)
-  .put(updateTask)
-  .delete(deleteTask)
-  .patch(softDeleteTask); // PATCH for soft delete
+  .get(protectRoute, getTask)
+  .put(protectRoute, updateTask)
+  .delete(protectRoute, deleteTask)
+  .patch(protectRoute, softDeleteTask); // PATCH for soft delete
 
 router.route("/:id/restore")
-  .patch(restoreTask); // PATCH for restore
+  .patch(protectRoute, restoreTask); // PATCH for restore
 
 export default router;

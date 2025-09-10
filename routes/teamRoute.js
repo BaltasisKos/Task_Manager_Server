@@ -8,15 +8,16 @@ import {
   deleteTeam,
   getArchivedTeams
 } from "../controller/teamController.js";
+import { protectRoute } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/", getTeams);
-router.get("/archived", getArchivedTeams);  
-router.post("/", createTeam);
-router.put("/:id", updateTeam);
-router.patch("/:id/archive", softDeleteTeam); // use softDeleteTeam
-router.patch("/:id/restore", restoreTeam);
-router.delete("/:id", deleteTeam);
+router.get("/", protectRoute, getTeams);
+router.get("/archived", protectRoute, getArchivedTeams);  
+router.post("/", protectRoute, createTeam);
+router.put("/:id", protectRoute, updateTeam);
+router.patch("/:id/archive", protectRoute, softDeleteTeam); // use softDeleteTeam
+router.patch("/:id/restore", protectRoute, restoreTeam);
+router.delete("/:id", protectRoute, deleteTeam);
 
 export default router;
