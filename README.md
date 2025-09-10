@@ -89,21 +89,4 @@ Task_Manager_Server/
 
 ---
 
-## How to Use (API)
-
-1. **Create a Task**  
-   Send a `POST` request to `/tasks` with the appropriate JSON payload (e.g., title, description, status, priority).
-
-2. **Retrieve Tasks**  
-   Send a `GET` request to `/tasks` for all tasks or `/tasks/:id` for a specific task.
-
-3. **Update a Task**  
-   Use `PUT` or `PATCH` to `/tasks/:id` with updated task details in the payload.
-
-4. **Delete a Task**  
-   Send a `DELETE` request to `/tasks/:id`.
-
-Use tools like Postman, Insomnia, or cURL to test the API during development.
-
----
 
